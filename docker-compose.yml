@@ -1,0 +1,14 @@
+version: '2'
+services:
+  asyncio-api:
+    build: .
+    ports:
+      - '8090:8090'
+  asyncio-server:
+    build: .
+    ports:
+      - '9090:9090'
+    environment:
+      APP: server.py
+    links:
+      - asyncio-api:api
