@@ -13,9 +13,9 @@ application = Flask(__name__)
 
 api_host = 'http://{}:8090'.format(os.getenv('API_NAME', 'localhost'))
 reqs = [
-    'api_host' + '?sleep=1000',
-    'api_host' + '?sleep=5000',
-    'api_host' + '?sleep=2000',
+    api_host + '?sleep=1000',
+    api_host + '?sleep=5000',
+    api_host + '?sleep=2000',
 ]
 
 
