@@ -26,7 +26,7 @@ To launch the app run:
 And test it by `curl`ing to **server.py**
 
 ```sh
-> curl -i http://asyncio-server/serial
-> curl -i http://asyncio-server/concurrent
-> curl -i http://asyncio-server/concurrent?timeout=1.2
+> curl -i http://localhost:9090/serial
+> curl -i http://localhost:9090/concurrent
+> curl -i http://localhost:9090/concurrent?timeout=1.2
 ```
