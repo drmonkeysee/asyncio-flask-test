@@ -3,12 +3,14 @@ services:
   asyncio-api:
     build: .
     ports:
-      - '8090:8090'
+      - '8090:8000'
   asyncio-server:
     build: .
     ports:
-      - '9090:9090'
+      - '9090:8000'
     environment:
       APP: server.py
+      API_HOST: api
+      API_PORT: 8000
     links:
       - asyncio-api:api

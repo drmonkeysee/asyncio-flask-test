@@ -11,7 +11,7 @@ from flask import Flask, request, g
 application = Flask(__name__)
 
 
-api_host = 'http://{}:8090'.format(os.getenv('API_NAME', 'localhost'))
+api_host = 'http://{}:{}'.format(os.getenv('API_HOST', 'localhost'), os.getenv('API_PORT', 8090))
 reqs = [
     api_host + '?sleep=1000',
     api_host + '?sleep=5000',
@@ -28,7 +28,7 @@ def serial():
         requests.get(req)
         stats['req' + str(i)] = time.time() - now
     stats['total'] = time.time() - start
-    return json.dumps(stats, indent=2)
+    return json.dumps(stats, sort_keys=True, indent=2)
 
 
 def _call_request(index, *args, **kwargs):
@@ -60,7 +60,7 @@ def concurrent():
     for i, result in enumerate(res):
         stats['req' + str(i)] = str(result)
     stats['total'] = time.time() - start
-    return json.dumps(stats, indent=2)
+    return json.dumps(stats, sort_keys=True, indent=2)
 
 
 if __name__ == '__main__':

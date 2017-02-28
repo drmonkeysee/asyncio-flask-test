@@ -21,6 +21,6 @@ COPY . $APP_DIR
 
 RUN chmod u+x launch.sh
 
-EXPOSE 8090
+EXPOSE 8000
 
 CMD ./launch.sh "$APP"

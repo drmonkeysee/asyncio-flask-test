@@ -8,9 +8,9 @@ application = Flask(__name__)
 @application.route('/')
 def call():
     sleep = int(request.args['sleep'])
-    ms = sleep / 1000.0
-    time.sleep(ms)
-    return 'Slept for {} milliseconds'.format(ms)
+    seconds = sleep / 1000.0
+    time.sleep(seconds)
+    return 'Slept for {} milliseconds'.format(sleep)
 
 
 if __name__ == '__main__':
