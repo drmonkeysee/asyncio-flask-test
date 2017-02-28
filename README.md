@@ -30,3 +30,11 @@ And test it by `curl`ing to **server.py**
 > curl -i http://localhost:9090/concurrent
 > curl -i http://localhost:9090/concurrent?timeout=1.2
 ```
+
+To load test **server.py** fire up the locustfile as:
+
+```sh
+>locust --host=http://localhost:9090
+```
+
+Go to `http://localhost:8089` in a browser and kick off the load test there.

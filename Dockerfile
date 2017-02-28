@@ -8,14 +8,10 @@ WORKDIR $APP_DIR
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends build-essential \
-    && pip install uwsgi \
+    && pip install Flask uwsgi requests \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get purge -y build-essential \
     && apt-get autoremove -y
-
-COPY requirements.txt $APP_DIR/requirements.txt
-
-RUN pip install -r requirements.txt
 
 COPY . $APP_DIR
 
