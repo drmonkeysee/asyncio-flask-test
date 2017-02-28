@@ -19,6 +19,17 @@ reqs = [
 ]
 
 
+@application.before_request
+def init_loop():
+    try:
+        g.loop = asyncio.get_event_loop()
+        print('got event loop for', threading.current_thread().name)
+    except RuntimeError:
+        g.loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(g.loop)
+        print('created new event loop for', threading.current_thread().name)
+
+
 @application.route('/serial')
 def serial():
     stats = {}
@@ -29,23 +40,6 @@ def serial():
         stats['req' + str(i)] = time.time() - now
     stats['total'] = time.time() - start
     return json.dumps(stats, sort_keys=True, indent=2)
-
-
-def _call_request(index, *args, **kwargs):
-    start = time.time()
-    resp = requests.get(*args, **kwargs)
-    return time.time() - start
-
-
-@application.before_request
-def init_loop():
-    try:
-        g.loop = asyncio.get_event_loop()
-        print('got event loop for', threading.current_thread().name)
-    except RuntimeError:
-        g.loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(g.loop)
-        print('created new event loop for', threading.current_thread().name)
 
 
 @application.route('/concurrent')
@@ -61,6 +55,12 @@ def concurrent():
         stats['req' + str(i)] = str(result)
     stats['total'] = time.time() - start
     return json.dumps(stats, sort_keys=True, indent=2)
+
+
+def _call_request(index, *args, **kwargs):
+    start = time.time()
+    resp = requests.get(*args, **kwargs)
+    return time.time() - start
 
 
 if __name__ == '__main__':
