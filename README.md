@@ -27,9 +27,13 @@ And test it by `curl`ing to **server.py**
 
 ```sh
 > curl -i http://localhost:9090/serial
-> curl -i http://localhost:9090/concurrent
-> curl -i http://localhost:9090/concurrent?timeout=1.2
+> curl -i http://localhost:9090/gather
+> curl -i http://localhost:9090/gather?timeout=1.2
+> curl -i http://localhost:9090/async
+> curl -i http://localhost:9090/async?timeout=1.2
 ```
+
+`serial` will invoke all api requests in order, `gather` will invoke api requests using `asyncio.gather()`, and `async` will invoke api requests using the `async`/`await` pattern.
 
 To load test **server.py** fire up the locustfile as:
 
