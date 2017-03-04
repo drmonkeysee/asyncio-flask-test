@@ -71,7 +71,10 @@ async def _invoke_requests():
     co_requests = _wrap_requests()
     results = []
     for i, c in enumerate(co_requests):
-        results.insert(i, await c)
+        try:
+            results.insert(i, await c)
+        except Exception as ex:
+            results.insert(i, ex)
     return results
 
 
