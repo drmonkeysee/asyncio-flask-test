@@ -1,6 +1,8 @@
 # Asyncio Flask Test
 
-This is a test application illustrating how to utilize asyncio with a Flask application to call multiple HTTP endpoints within a single request. A web application **server.py** calls a "3rd-party" api **api.py** either in serial or concurrently and returns timing information. **server.py** provides a few endpoints to test different strategies for making multiple HTTP calls. **api.py** simulates doing work by accepting a sleep parameter and waiting for that number of milliseconds before returning. By default **server.py** will call **api.py** with delays of 1, 5, and 2 seconds.
+This is a test application illustrating how to utilize asyncio with a Flask application to call multiple HTTP endpoints within a single request. A web application **server.py** calls a "3rd-party" service **api.py** either in serial or concurrently and returns timing information.
+
+**server.py** provides a few endpoints to test different strategies for making multiple HTTP calls. **api.py** simulates doing work by accepting a sleep parameter and waiting for that number of milliseconds before returning. By default **server.py** will call **api.py** with delays of 1, 5, and 2 seconds.
 
 To develop locally set up a virtual environment and install the local dependencies:
 
