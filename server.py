@@ -32,12 +32,19 @@ def init_loop():
 
 @application.route('/serial')
 def serial():
+    req_args = {}
+    if 'timeout' in request.args:
+        req_args['timeout'] = float(request.args['timeout'])
     stats = {}
     start = time.time()
     for i, req in enumerate(reqs):
         now = time.time()
-        requests.get(req)
-        stats['req' + str(i)] = time.time() - now
+        try:
+            requests.get(req, **req_args)
+        except Exception as ex:
+            stats['req' + str(i)] = str(ex)
+        else:
+            stats['req' + str(i)] = time.time() - now
     stats['total'] = time.time() - start
     return json.dumps(stats, sort_keys=True, indent=2)
 
@@ -57,7 +64,7 @@ def _concurrent(async_op):
     start = time.time()
     res = g.loop.run_until_complete(async_op())
     for i, result in enumerate(res):
-        stats['req' + str(i)] = str(result)
+        stats['req' + str(i)] = result
     stats['total'] = time.time() - start
     return json.dumps(stats, sort_keys=True, indent=2)
 
@@ -74,7 +81,7 @@ async def _invoke_requests():
         try:
             results[i] = await c
         except Exception as ex:
-            results[i] = ex
+            results[i] = str(ex)
     return results
 
 

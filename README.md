@@ -1,6 +1,6 @@
 # Asyncio Flask Test
 
-An application for testing the use of Python 3's asyncio module within Flask to call multiple web apis in a single request. A web server **server.py** calls an api **api.py** either in serial or concurrently and returns timing information.
+This is a test application illustrating how to utilize asyncio with a Flask application to call multiple HTTP endpoints within a single request. A web application **server.py** calls a "3rd-party" api **api.py** either in serial or concurrently and returns timing information. **server.py** provides a few endpoints to test different strategies for making multiple HTTP calls. **api.py** simulates doing work by accepting a sleep parameter and waiting for that number of milliseconds before returning. By default **server.py** will call **api.py** with delays of 1, 5, and 2 seconds.
 
 To develop locally set up a virtual environment and install the local dependencies:
 
@@ -27,6 +27,7 @@ And test it by `curl`ing to **server.py**
 
 ```sh
 > curl -i http://localhost:9090/serial
+> curl -i http://localhost:9090/serial?timeout=1.2
 > curl -i http://localhost:9090/gather
 > curl -i http://localhost:9090/gather?timeout=1.2
 > curl -i http://localhost:9090/async
